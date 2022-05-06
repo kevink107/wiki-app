@@ -1,0 +1,15 @@
+.searchbar {
+    width: 80%;
+    height: auto;
+    position: relative;
+    align-self: center;
+}
+
+input {
+    width: 100%;
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    border-color: blue;
+}

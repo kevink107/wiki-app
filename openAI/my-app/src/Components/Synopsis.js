@@ -11,7 +11,7 @@ export default class Synopsis extends Component {
         </div>
         <div className = "synopsis">
           <div>Article Synopsis: </div>
-          <div id = "breakdown">This is a cool aritcle</div>
+          <div id = "breakdown"></div>
         </div>
       </div>
     );
