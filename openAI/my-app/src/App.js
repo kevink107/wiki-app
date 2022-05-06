@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Searchbar from './Components/Searchbar';
 import wikiSearch from './Wikisearch';
 import Synopsis from './Components/Synopsis';
+import Topbar from './Components/Topbar/Topbar.js';
 
 class App extends Component {
 
@@ -81,6 +82,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Topbar/>
         <div className = "Content">
           <h1>What would you like to learn about?</h1>
           <Searchbar searchInput = {this.updateResults}/>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "./searchbar.css"
 
 export default class Searchbar extends Component {
 
@@ -23,7 +24,7 @@ export default class Searchbar extends Component {
 
   render() {
     return (
-      <div>
+      <div className="searchbar">
         <input onChange = {this.onInputChange} value = {this.state.searchterm} onKeyPress = {this.onEnter}></input>
       </div>
     );
