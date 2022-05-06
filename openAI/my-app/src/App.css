@@ -1,0 +1,38 @@
+.App{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.findings{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.synopsis{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.Content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#article{
+  margin-left: 5px;
+}
+
+#breakdown{
+  margin-top: 5px;
+}
