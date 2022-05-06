@@ -4,6 +4,7 @@ import Searchbar from './Components/Searchbar';
 import wikiSearch from './Wikisearch';
 import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar/Topbar.js';
+import Button from './Components/Button';
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
     }
   }
   updateResults = (text) => {
+    this.setState({synopsisArray: []});
     this.setState({searchterm: text});
     this.getTitle(text);
     setTimeout(() => {
@@ -60,7 +62,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -82,20 +84,29 @@ class App extends Component {
 
     //some parsing
     for(let i = 2; i<finalSynopsis.length-2; i++){
-      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ")){
+      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ") && !(numbers.has(finalSynopsis[i-1]))){
         synopArray.push(tempString);
         tempString = finalSynopsis[i];
-      } else if((tempString.length>60) && (finalSynopsis[i]==" ")){
-        synopArray.push(tempString);
-        tempString = "";
-      }
+      } //else if((tempString.length>60) && (finalSynopsis[i]==" ")){
+      //   synopArray.push(tempString);
+      //   tempString = "";
+      // }
       else{
         tempString = tempString+finalSynopsis[i];
       }
     }
 
+    //last 2 characters
+    synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
+
+    var lastItem = synopArray[synopArray.length-1];
+    if(lastItem[lastItem.length-1]!="."){
+      console.log(lastItem);
+      synopArray.pop();
+    }
+
+    //checks if articles points to multiple other articles (can maybe add some buttom options here at some point)
     if(synopArray[0].includes("may refer to")){
-      console.log("yes");
       this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."})
     } else{
 
@@ -121,6 +132,10 @@ class App extends Component {
           <h1>What would you like to learn about?</h1>
           <Searchbar searchInput = {this.updateResults}/>
           <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
+          <div id = "buttons">
+            <Button></Button>
+            <Button></Button>
+          </div>
         </div>
         
       </div>
