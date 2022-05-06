@@ -12,7 +12,8 @@ class App extends Component {
 
     this.state = {
       searchterm: '',
-      synopsis: '',
+      synopsis: "",
+      synopsisArray: [],
       results: null,
       articleName: "",
       extract: null
@@ -59,34 +60,67 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
-    const finalPrompt = "What are some key points from this text\n\n\"\"\""+strippedHtml+"\"\"\""
+    const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
     const openai = new OpenAIApi(configuration);
     const synopsisResponse = await openai.createCompletion("text-curie-001", {
       prompt: finalPrompt,
       temperature: 0.5,
-      max_tokens: 233,
+      max_tokens: 200,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
       stop: ["\"\"\""],
     });
     
-    const finalSynopsis = synopsisResponse.data.choices[0].text;
-    console.log(finalSynopsis);
+    const synopArray = [];
+    const finalSynopsis = "1." +synopsisResponse.data.choices[0].text;
+    const numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    let tempString = "1.";
+
+    //some parsing
+    for(let i = 2; i<finalSynopsis.length-2; i++){
+      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ")){
+        synopArray.push(tempString);
+        tempString = finalSynopsis[i];
+      } else if((tempString.length>60) && (finalSynopsis[i]==" ")){
+        synopArray.push(tempString);
+        tempString = "";
+      }
+      else{
+        tempString = tempString+finalSynopsis[i];
+      }
+    }
+
+    if(synopArray[0].includes("may refer to")){
+      console.log("yes");
+      this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."})
+    } else{
+
+      var domRender = [];
+      for(let i = 0; i<synopArray.length; i++){
+        if(synopArray[i]!=''){
+          domRender.push(<div className = "synopsisPoint">{synopArray[i]}</div>);
+        }
+      }
+      this.setState({synopsisArray: domRender});
+    }
+
     this.setState({synopsis: finalSynopsis});
+    
   }
 
   render() {
+
     return (
       <div className="App">
         <Topbar/>
         <div className = "Content">
           <h1>What would you like to learn about?</h1>
           <Searchbar searchInput = {this.updateResults}/>
-          <Synopsis article = {this.state.articleName} text = {this.state.synopsis}></Synopsis>
+          <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
         </div>
         
       </div>

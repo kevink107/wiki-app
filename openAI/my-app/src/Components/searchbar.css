@@ -11,5 +11,6 @@ input {
     padding: 10px;
     border-radius: 10px;
     font-size: 15px;
-    border-color: blue;
+    border: none;
+    background-color: rgb(225, 225, 225);
 }
