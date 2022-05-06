@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: center;
   margin-top: 100px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .findings{
@@ -32,6 +33,11 @@
   flex-direction: column;
   justify-content: flex-start;
   border-radius: 10px;
+  color: rgb(71, 71, 71);
+}
+
+.synopsisPoint{
+  margin-top: 5px;
 }
 
 #article{
@@ -41,3 +47,4 @@
 #breakdown{
   margin-top: 5px;
 }
+
