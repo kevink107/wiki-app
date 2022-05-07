@@ -17,8 +17,9 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
+      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
       otherLinks: ["Dartmouth College", "Artificial Intelligence"],
-      searches: 0
+      searches: 0,
     }
   }
 
@@ -45,11 +46,20 @@ class App extends Component {
     const json = await response.json();
     console.log(json);
     const title = json.query.search[0].title
-    const title1 = json.query.search[10].title
-    const title2 = json.query.search[11].title
+    var x = Math.floor(Math.random()*19);
+
+    //to avoid having the same article in the button
+    if(x==0){
+      x = 1;
+    }
+
+    console.log(x);
+    const title1 = json.query.search[x].title
+    const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
+    this.setState({searched: this.state.searched.add(title, title1, title2)});
   }
 
 
@@ -71,7 +81,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -101,7 +111,6 @@ class App extends Component {
         tempString = tempString+finalSynopsis[i];
       }
     }
-
     //last 2 characters
     synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
 
@@ -128,9 +137,7 @@ class App extends Component {
       }
       this.setState({synopsisArray: domRender});
     }
-
     this.setState({synopsis: finalSynopsis});
-    
   }
 
   render() {
