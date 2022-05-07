@@ -5,4 +5,5 @@ button {
     background-color: rgb(145, 194, 130);
     color: white;
     font-weight: 500;
+    border-color: white;
 }

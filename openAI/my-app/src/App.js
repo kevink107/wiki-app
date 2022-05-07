@@ -2,8 +2,10 @@ import './App.css';
 import React, { Component } from 'react';
 import Searchbar from './Components/Searchbar';
 import Synopsis from './Components/Synopsis';
-import Topbar from './Components/Topbar/Topbar.js';
+import Topbar from './Components/Topbar';
+import SlidingMenu from './Components/SlidingMenu';
 import Button from './Components/Button';
+import Home from './Home.js';
 
 class App extends Component {
 
