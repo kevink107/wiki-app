@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 
 export default class Button extends Component {
+
+
+  onClick = () => {
+    this.props.buttonClick(this.props.text);
+  }
+
+
   render() {
     return (
-      <a className = "button" href='https://google.com/'>
-        <button>
-            Link
-        </button>
-      </a>
+        <button onClick = {this.onClick} className = "button">{this.props.text}</button>
     )
   }
 }

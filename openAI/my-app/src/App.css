@@ -8,12 +8,12 @@
 
 #buttons{
   display: flex;
-  flex-direction: column;
-  margin-top: 20px;
+  flex-direction: row;
 }
 
 .button{
-  margin-top: 10px;
+  margin-left: 7px;
+  display: inline-block;
 }
 
 .findings{
