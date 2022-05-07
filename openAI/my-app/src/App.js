@@ -1,7 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
 import Searchbar from './Components/Searchbar';
-import wikiSearch from './Wikisearch';
 import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar/Topbar.js';
 import Button from './Components/Button';
@@ -22,7 +21,7 @@ class App extends Component {
       searches: 0
     }
   }
-  
+
   updateResults = (text) => {
     this.setState({searches: this.state.searches+1});
     this.setState({synopsisArray: []});
