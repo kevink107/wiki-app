@@ -1,9 +1,10 @@
 import './App.css';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Searchbar from './Components/Searchbar';
 import wikiSearch from './Wikisearch';
 import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar/Topbar.js';
+import SlidingMenu from './Components/SlidingMenu.js';
 
 class App extends Component {
 
@@ -16,7 +17,9 @@ class App extends Component {
       synopsisArray: [],
       results: null,
       articleName: "",
-      extract: null
+      extract: null,
+      isOpen: true,
+      setOpen: true
     }
   }
   updateResults = (text) => {
@@ -60,7 +63,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -111,11 +114,12 @@ class App extends Component {
     this.setState({synopsis: finalSynopsis});
     
   }
-
+  
   render() {
-
+    
     return (
       <div className="App">
+        <SlidingMenu isOpen = {this.state.isOpen} onChange = {this.state.setOpen}/>
         <Topbar/>
         <div className = "Content">
           <h1>What would you like to learn about?</h1>

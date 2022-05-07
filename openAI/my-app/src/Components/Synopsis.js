@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "./synopsis.css"
 
 export default class Synopsis extends Component {
 
