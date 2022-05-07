@@ -46,12 +46,20 @@ class App extends Component {
     }
     const json = await response.json();
     console.log(json);
-    const title = json.query.search[0].title
-    const title1 = json.query.search[10].title
-    const title2 = json.query.search[11].title
+    var x = Math.floor(Math.random()*19);
+
+    //to avoid having the same article in the button
+    if(x==0){
+      x = 1;
+    }
+
+    console.log(x);
+    const title1 = json.query.search[x].title
+    const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
+    this.setState({searched: this.state.searched.add(title, title1, title2)});
   }
 
 
