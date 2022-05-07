@@ -1,9 +1,9 @@
 import './App.css';
 import React, { Component } from 'react';
 import Searchbar from './Components/Searchbar';
-import wikiSearch from './Wikisearch';
 import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar/Topbar.js';
+import Button from './Components/Button';
 
 class App extends Component {
 
@@ -16,10 +16,15 @@ class App extends Component {
       synopsisArray: [],
       results: null,
       articleName: "",
-      extract: null
+      extract: null,
+      otherLinks: ["Dartmouth College", "Artificial Intelligence"],
+      searches: 0
     }
   }
+
   updateResults = (text) => {
+    this.setState({searches: this.state.searches+1});
+    this.setState({synopsisArray: []});
     this.setState({searchterm: text});
     this.getTitle(text);
     setTimeout(() => {
@@ -38,10 +43,15 @@ class App extends Component {
        throw Error(response.statusText)
     }
     const json = await response.json();
+    console.log(json);
     const title = json.query.search[0].title
-    this.setState({results: json.query.search});
+    const title1 = json.query.search[10].title
+    const title2 = json.query.search[11].title
+    this.setState({results: json.query.search}); 
     this.setState({articleName: title});
+    this.setState({otherLinks: [title1, title2]});
   }
+
 
   getSynopsis = async(text) => {
     const url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=" + text;
@@ -50,6 +60,7 @@ class App extends Component {
        throw Error(response.statusText)
     }
     const json = await response.json();
+    console.log(json);
     const pages = json.query.pages;
     const pageIds = Object.keys(pages);
     const firstPageId = pageIds.length ? pageIds[0] : null;
@@ -60,7 +71,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -82,21 +93,31 @@ class App extends Component {
 
     //some parsing
     for(let i = 2; i<finalSynopsis.length-2; i++){
-      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ")){
+      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ") && !(numbers.has(finalSynopsis[i-1]))){
         synopArray.push(tempString);
         tempString = finalSynopsis[i];
-      } else if((tempString.length>60) && (finalSynopsis[i]==" ")){
-        synopArray.push(tempString);
-        tempString = "";
-      }
+      } 
       else{
         tempString = tempString+finalSynopsis[i];
       }
     }
 
+    //last 2 characters
+    synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
+
+    var lastItem = synopArray[synopArray.length-1];
+    if(lastItem[lastItem.length-1]!="."){
+      console.log(lastItem);
+      synopArray.pop();
+    }
+
+    if(synopArray.length==0){
+      this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."});
+      return;
+    }
+    //checks if articles points to multiple other articles (can maybe add some buttom options here at some point)
     if(synopArray[0].includes("may refer to")){
-      console.log("yes");
-      this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."})
+      this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."});
     } else{
 
       var domRender = [];
@@ -121,6 +142,11 @@ class App extends Component {
           <h1>What would you like to learn about?</h1>
           <Searchbar searchInput = {this.updateResults}/>
           <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
+          <h2>{this.state.searches>0 ? "Dig deeper:" : "You Can Also Start here"}</h2>
+          <div id = "buttons">
+            <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
+            <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+          </div>
         </div>
         
       </div>

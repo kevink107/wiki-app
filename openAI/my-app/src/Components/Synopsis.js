@@ -6,11 +6,11 @@ export default class Synopsis extends Component {
     return (
       <div className = "findings">
         <div className = "title">
-          <div>Article Title: </div>
+          <div className = "bold">Article Title: </div>
           <div id = "article">{this.props.article}</div>
         </div>
         <div className = "synopsis">
-          <div>Article Synopsis: </div>
+          <div className = "bold">Article Synopsis: </div>
           <div id = "breakdown">{this.props.text}</div>
         </div>
       </div>
