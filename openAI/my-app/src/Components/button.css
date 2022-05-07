@@ -1,9 +1,23 @@
-button {
-    border-radius: 10px;
+.button {
     padding: 10px;
-    font-size: 20px;
-    background-color: rgb(145, 194, 130);
-    color: white;
-    font-weight: 500;
-    border-color: white;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 15px;
+    background-color: rgb(255, 255, 255);
+    border-width: thin;
+    color: rgb(0, 0, 0);
+    font-weight: 300;
+    border-color: rgb(0, 0, 0);
+}
+
+.button:hover{
+    padding: 10px;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 15px;
+    background-color: rgb(0, 0, 0);
+    border-width: thin;
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+    border-color: rgb(0, 0, 0);
 }

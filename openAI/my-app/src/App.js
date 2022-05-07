@@ -73,7 +73,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -141,14 +141,17 @@ class App extends Component {
       <div className="App">
         <Topbar/>
         <div className = "Content">
-          <h1>What would you like to learn about?</h1>
-          <Searchbar searchInput = {this.updateResults}/>
-          <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
-          <h2>{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
-          <div id = "buttons">
-            <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
-            <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+          <div className = "innerContent">
+            <h1>What would you like to learn about?</h1>
+            <Searchbar searchInput = {this.updateResults}/>
+            <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
+            <h2 id = "header2">{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
+            <div id = "buttons">
+              <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
+              <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+            </div>
           </div>
+          
         </div>
         
       </div>
