@@ -142,7 +142,7 @@ class App extends Component {
           <h1>What would you like to learn about?</h1>
           <Searchbar searchInput = {this.updateResults}/>
           <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
-          <h2>{this.state.searches>0 ? "Dig deeper:" : "You Can Also Start here"}</h2>
+          <h2>{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
           <div id = "buttons">
             <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
             <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
