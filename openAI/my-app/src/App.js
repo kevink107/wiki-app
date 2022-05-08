@@ -47,7 +47,7 @@ class App extends Component {
     }
     const json = await response.json();
     console.log(json);
-    const title = json.query.search[0].title
+
     var x = Math.floor(Math.random()*19);
 
     //to avoid having the same article in the button
@@ -148,14 +148,17 @@ class App extends Component {
       <div className="App">
         <Topbar/>
         <div className = "Content">
-          <h1>What would you like to learn about?</h1>
-          <Searchbar searchInput = {this.updateResults}/>
-          <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
-          <h2>{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
-          <div id = "buttons">
-            <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
-            <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+          <div className = "innerContent">
+            <h1>What would you like to learn about?</h1>
+            <Searchbar searchInput = {this.updateResults}/>
+            <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
+            <h2 id = "header2">{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
+            <div id = "buttons">
+              <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
+              <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+            </div>
           </div>
+          
         </div>
         
       </div>
