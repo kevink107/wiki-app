@@ -26,8 +26,13 @@ class App extends Component {
   }
 
   updateResults = (text) => {
+    if(text.length==0){
+      this.setState({synopsisArray: "Empty search"});
+      return;
+    }
+    
     this.setState({searches: this.state.searches+1});
-    this.setState({synopsisArray: ["Loading..."]});
+    this.setState({synopsisArray: "Loading..."});
     this.setState({searchterm: text});
     // set article title and synopsis to loading here...
     this.getTitle(text);
@@ -58,6 +63,7 @@ class App extends Component {
     }
 
     console.log(x);
+    const title = json.query.search[0].title
     const title1 = json.query.search[x].title
     const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
@@ -85,7 +91,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
 
     });
 
