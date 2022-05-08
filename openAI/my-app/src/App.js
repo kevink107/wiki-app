@@ -63,11 +63,7 @@ class App extends Component {
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
-<<<<<<< HEAD
-    return title;
-=======
     this.setState({searched: this.state.searched.add(title, title1, title2)});
->>>>>>> b58949a7a611cdd49293e0bbff181a6c71898a7f
   }
 
 
@@ -89,11 +85,8 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-<<<<<<< HEAD
-      apiKey: "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",
-=======
       apiKey: "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",
->>>>>>> b58949a7a611cdd49293e0bbff181a6c71898a7f
+
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
