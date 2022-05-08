@@ -19,8 +19,9 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
+      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
       otherLinks: ["Dartmouth College", "Artificial Intelligence"],
-      searches: 0
+      searches: 0,
     }
   }
 
@@ -46,6 +47,7 @@ class App extends Component {
     }
     const json = await response.json();
     console.log(json);
+
     var x = Math.floor(Math.random()*19);
 
     //to avoid having the same article in the button
@@ -81,7 +83,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -111,7 +113,6 @@ class App extends Component {
         tempString = tempString+finalSynopsis[i];
       }
     }
-
     //last 2 characters
     synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
 
@@ -138,9 +139,7 @@ class App extends Component {
       }
       this.setState({synopsisArray: domRender});
     }
-
     this.setState({synopsis: finalSynopsis});
-    
   }
 
   render() {
