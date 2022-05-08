@@ -63,6 +63,7 @@ class App extends Component {
     }
 
     console.log(x);
+    const title = json.query.search[0].title
     const title1 = json.query.search[x].title
     const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
