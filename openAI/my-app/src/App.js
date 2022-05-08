@@ -26,6 +26,11 @@ class App extends Component {
   }
 
   updateResults = (text) => {
+    if(text.length==0){
+      this.setState({synopsisArray: "Empty search"});
+      return;
+    }
+    
     this.setState({searches: this.state.searches+1});
     this.setState({synopsisArray: ["Loading..."]});
     this.setState({searchterm: text});
@@ -46,6 +51,7 @@ class App extends Component {
     if (!response.ok) {
        throw Error(response.statusText)
     }
+    
     this.setState({results: "loading..."}); 
     const json = await response.json();
     console.log(json);
@@ -58,6 +64,7 @@ class App extends Component {
     }
 
     console.log(x);
+    const title = json.query.search[0].title
     const title1 = json.query.search[x].title
     const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
