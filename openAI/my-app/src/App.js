@@ -27,8 +27,9 @@ class App extends Component {
 
   updateResults = (text) => {
     this.setState({searches: this.state.searches+1});
-    this.setState({synopsisArray: []});
+    this.setState({synopsisArray: ["Loading..."]});
     this.setState({searchterm: text});
+    // set article title and synopsis to loading here...
     this.getTitle(text);
     setTimeout(() => {
       this.getSynopsis(this.state.articleName)
@@ -45,6 +46,7 @@ class App extends Component {
     if (!response.ok) {
        throw Error(response.statusText)
     }
+    this.setState({results: "loading..."}); 
     const json = await response.json();
     console.log(json);
 
@@ -84,6 +86,7 @@ class App extends Component {
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
       apiKey: "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",
+
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -143,7 +146,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <Topbar/>
