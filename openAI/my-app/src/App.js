@@ -26,6 +26,11 @@ class App extends Component {
   }
 
   updateResults = (text) => {
+    if(text.length==0){
+      this.setState({synopsisArray: "Empty search"});
+      return;
+    }
+    
     this.setState({searches: this.state.searches+1});
     this.setState({synopsisArray: ["Loading..."]});
     this.setState({searchterm: text});
