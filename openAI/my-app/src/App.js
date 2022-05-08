@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import Searchbar from './Components/Searchbar';
 import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
-import SlidingMenu from './Components/SlidingMenu';
 import Button from './Components/Button';
-import Home from './Home.js';
 
 class App extends Component {
 
@@ -26,13 +24,15 @@ class App extends Component {
   }
 
   updateResults = (text) => {
-    if(text.length==0){
+    if(text.length===0){
       this.setState({synopsisArray: "Empty search"});
       return;
     }
     
     this.setState({searches: this.state.searches+1});
-    this.setState({synopsisArray: ["Loading..."]});
+    this.setState({synopsisArray: [
+      <img className = "animated-gif" src="https://raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator_large.gif" alt=""/>
+    ]});
     this.setState({searchterm: text});
     // set article title and synopsis to loading here...
     this.getTitle(text);
@@ -52,14 +52,14 @@ class App extends Component {
        throw Error(response.statusText)
     }
     
-    this.setState({results: "loading..."}); 
+    this.setState({results: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"}); 
     const json = await response.json();
     console.log(json);
 
     var x = Math.floor(Math.random()*19);
 
     //to avoid having the same article in the button
-    if(x==0){
+    if(x===0){
       x = 1;
     }
 
@@ -92,7 +92,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
 
     });
 
@@ -115,7 +115,7 @@ class App extends Component {
 
     //some parsing
     for(let i = 2; i<finalSynopsis.length-2; i++){
-      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]==".") && (finalSynopsis[i+2]==" ") && !(numbers.has(finalSynopsis[i-1]))){
+      if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]===".") && (finalSynopsis[i+2]===" ") && !(numbers.has(finalSynopsis[i-1]))){
         synopArray.push(tempString);
         tempString = finalSynopsis[i];
       } 
@@ -127,12 +127,12 @@ class App extends Component {
     synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
 
     var lastItem = synopArray[synopArray.length-1];
-    if(lastItem[lastItem.length-1]!="."){
+    if(lastItem[lastItem.length-1]!=="."){
       console.log(lastItem);
       synopArray.pop();
     }
 
-    if(synopArray.length==0){
+    if(synopArray.length===0){
       this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."});
       return;
     }
@@ -143,7 +143,7 @@ class App extends Component {
 
       var domRender = [];
       for(let i = 0; i<synopArray.length; i++){
-        if(synopArray[i]!=''){
+        if(synopArray[i]!==''){
           domRender.push(<div className = "synopsisPoint">{synopArray[i]}</div>);
         }
       }
