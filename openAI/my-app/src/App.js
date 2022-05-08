@@ -51,6 +51,7 @@ class App extends Component {
     if (!response.ok) {
        throw Error(response.statusText)
     }
+    
     this.setState({results: "loading..."}); 
     const json = await response.json();
     console.log(json);
