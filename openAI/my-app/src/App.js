@@ -92,7 +92,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
 
     });
 
