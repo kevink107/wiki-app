@@ -19,8 +19,9 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
+      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
       otherLinks: ["Dartmouth College", "Artificial Intelligence"],
-      searches: 0
+      searches: 0,
     }
   }
 
@@ -48,13 +49,25 @@ class App extends Component {
     this.setState({results: "loading..."}); 
     const json = await response.json();
     console.log(json);
-    const title = json.query.search[0].title
-    const title1 = json.query.search[10].title
-    const title2 = json.query.search[11].title
+
+    var x = Math.floor(Math.random()*19);
+
+    //to avoid having the same article in the button
+    if(x==0){
+      x = 1;
+    }
+
+    console.log(x);
+    const title1 = json.query.search[x].title
+    const title2 = json.query.search[x+1].title
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
+<<<<<<< HEAD
     return title;
+=======
+    this.setState({searched: this.state.searched.add(title, title1, title2)});
+>>>>>>> b58949a7a611cdd49293e0bbff181a6c71898a7f
   }
 
 
@@ -76,7 +89,11 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
+<<<<<<< HEAD
       apiKey: "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",
+=======
+      apiKey: "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",
+>>>>>>> b58949a7a611cdd49293e0bbff181a6c71898a7f
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
@@ -106,7 +123,6 @@ class App extends Component {
         tempString = tempString+finalSynopsis[i];
       }
     }
-
     //last 2 characters
     synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
 
@@ -133,9 +149,7 @@ class App extends Component {
       }
       this.setState({synopsisArray: domRender});
     }
-
     this.setState({synopsis: finalSynopsis});
-    
   }
 
   render() {
@@ -143,14 +157,17 @@ class App extends Component {
       <div className="App">
         <Topbar/>
         <div className = "Content">
-          <h1>What would you like to learn about?</h1>
-          <Searchbar searchInput = {this.updateResults}/>
-          <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
-          <h2>{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
-          <div id = "buttons">
-            <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
-            <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+          <div className = "innerContent">
+            <h1>What would you like to learn about?</h1>
+            <Searchbar searchInput = {this.updateResults}/>
+            <Synopsis article = {this.state.articleName} text = {this.state.synopsisArray}></Synopsis>
+            <h2 id = "header2">{this.state.searches>0 ? "Dig Deeper into the Rabbit Hole:" : "You Can Also Start Here"}</h2>
+            <div id = "buttons">
+              <Button text = {this.state.otherLinks[0]} buttonClick = {this.updateResults}></Button>
+              <Button text = {this.state.otherLinks[1]} buttonClick = {this.updateResults}></Button>
+            </div>
           </div>
+          
         </div>
         
       </div>

@@ -25,7 +25,7 @@ export default class Searchbar extends Component {
   render() {
     return (
       <div className="searchbar">
-        <input onChange = {this.onInputChange} value = {this.state.searchterm} onKeyPress = {this.onEnter}></input>
+        <input id = "search" placeholder = "Enter your search here" onChange = {this.onInputChange} value = {this.state.searchterm} onKeyPress = {this.onEnter}></input>
       </div>
     );
   }

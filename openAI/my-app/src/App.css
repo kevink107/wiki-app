@@ -15,18 +15,13 @@ h1 {
   flex-direction: row;
 }
 
-.button{
-  margin-left: 7px;
-  display: inline-block;
-  align-content: center;
-}
 
 .findings{
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 20px;
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(255, 255, 255);
   border-radius: 20px; 
 }
 
@@ -48,6 +43,7 @@ h1 {
 }
 
 .Content{
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -72,6 +68,10 @@ h1 {
 
 .bold{
   font-weight: bold;
+}
+
+#header2{
+  margin-left:5px;
 }
 
 
