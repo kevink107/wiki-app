@@ -3,6 +3,7 @@
     height: auto;
     position: relative;
     align-self: center;
+    z-index: 900;
 }
 
 input {

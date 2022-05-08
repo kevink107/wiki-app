@@ -6,6 +6,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+  align-self: center;
+}
+
 #buttons{
   display: flex;
   flex-direction: row;

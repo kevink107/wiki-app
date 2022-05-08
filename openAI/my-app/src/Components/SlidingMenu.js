@@ -31,6 +31,12 @@ const SlidingMenu = props => {
                         on the topic of your choice, and give you the ability to explore
                         related topics.
                     </p>
+                    <p>
+                        Creators: Brendan Berkman and Kevin King
+                    </p>
+                    <p>
+                        Dartmouth College Class of 2024
+                    </p>
                 </div>
             </div>
 
