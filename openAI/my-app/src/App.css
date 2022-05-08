@@ -10,6 +10,11 @@ h1 {
   align-self: center;
 }
 
+img.animated-gif{
+  width: 80px;
+  height: 40px;
+}
+
 #buttons{
   display: flex;
   flex-direction: row;
