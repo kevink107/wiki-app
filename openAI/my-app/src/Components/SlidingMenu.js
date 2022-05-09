@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import styles from "./SlidingMenu.module.css";
+import ColorChange from "./ColorChange.js";
 
 const SlidingMenu = props => {
     const { isOpen, children, onChange } = props;
@@ -9,6 +9,10 @@ const SlidingMenu = props => {
     const onClickHandler = () => {
         onChange(!isOpen);
         console.log(isOpen);
+    }
+
+    function changeColor(color) {
+        document.body.style.backgroundColor = color;
     }
 
     return (
@@ -28,7 +32,7 @@ const SlidingMenu = props => {
                     <h2>About Rabbit Hole</h2>
                     <p>Rabbit Hole was created for those who want to go down a "rabbit hole"
                         of information based on a selected topic. We curate information based
-                        on the topic of your choice, and give you the ability to explore
+                        on your search term, then provide you with the ability to explore
                         related topics.
                     </p>
                     <p>
@@ -37,6 +41,11 @@ const SlidingMenu = props => {
                     <p>
                         Dartmouth College Class of 2024
                     </p>
+                    {/* <h3>Change Color Theme: </h3>
+                    <div className='color-container'>
+                        <ColorChange colorType={'green'} onClick = {changeColor(`{colorType}`)}/>
+                    </div> */}
+
                 </div>
             </div>
 

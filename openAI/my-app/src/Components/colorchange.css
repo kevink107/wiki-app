@@ -1,0 +1,47 @@
+input[type="radio"] {
+    display: none;
+}
+
+.color-circle {
+    margin: 20px;
+}
+
+.color-circle img {
+    height: 100px;
+    transition: all 0.3s ease;
+}
+
+.color-circle img:hover {
+    transform: scale(110%);
+}
+
+.color-button {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.color-wrapper {
+    display: flex;
+    width: 300px;
+    text-align: center;
+}
+
+.color-image-wrapper {
+    display: flex;
+}
+
+#color-image {
+    transform: translate(15px);
+}
+
+.menu-color-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-color-button .color-circle img {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+}

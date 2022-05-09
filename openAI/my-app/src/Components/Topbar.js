@@ -4,6 +4,7 @@ import SlidingMenu from './SlidingMenu';
 
 export default function Topbar() {
     const [isOpen,setOpen] = useState(true);
+
     return (
         <div className="topbar" id="topbar">
             <SlidingMenu isOpen={isOpen} onChange={setOpen} />
