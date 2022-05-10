@@ -4,6 +4,7 @@
     position: relative;
     align-self: center;
     z-index: 900;
+    display: flex;
 }
 
 #search {
@@ -16,4 +17,13 @@
     border-color: rgb(67, 67, 67);
     font-size: 15px;
     background-color: rgb(255, 255, 255);
+    display: flex;
+
+}
+
+img {
+    width: 4%;
+    align-items: center;
+    display: flex;
+    opacity: 50%;
 }

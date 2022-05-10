@@ -92,8 +92,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
-
+      apiKey: "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",
     });
 
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."

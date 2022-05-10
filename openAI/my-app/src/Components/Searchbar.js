@@ -25,6 +25,7 @@ export default class Searchbar extends Component {
   render() {
     return (
       <div className="searchbar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/OOjs_UI_icon_search-ltr.svg" alt =""/>
         <input id = "search" placeholder = "Enter your search here" onChange = {this.onInputChange} value = {this.state.searchterm} onKeyPress = {this.onEnter}></input>
       </div>
     );
