@@ -5,6 +5,8 @@ import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
 import Button from './Components/Button';
 
+const apiKey = "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"; //YOUR API KEY HERE
+
 class App extends Component {
 
   constructor(props) {
@@ -104,7 +106,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: apiKey,
 
     });
 
