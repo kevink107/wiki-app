@@ -4,6 +4,7 @@
     position: relative;
     align-self: center;
     z-index: 900;
+    font-family: Consolas, monaco, monospace;
 }
 
 #search {

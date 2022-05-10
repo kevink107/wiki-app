@@ -19,7 +19,7 @@ p {
   left: 0;
   top: 0;
   transition: 0.4s;
-  background: rgb(145, 194, 130);
+  background: rgb(122, 144, 148);
   z-index: 99999;
   transform: translateX(-100%);
 }
@@ -35,7 +35,7 @@ p {
   left: 0;
   top: 0;
   overflow: hidden;
-  background-color: rgb(145, 194, 130);
+  background-color: rgb(122, 144, 148);
   cursor: pointer;
   transition: 0.4s;
 }

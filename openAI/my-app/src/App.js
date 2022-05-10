@@ -17,13 +17,14 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
-      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
-      otherLinks: ["Dartmouth College", "Artificial Intelligence"],
+      suggested: new Set(["Dartmouth College", "Artificial intelligence"]),
+      otherLinks: ["Dartmouth College", "Artificial intelligence"],
       searches: 0,
     }
   }
 
   updateResults = (text) => {
+    console.log(this.state.suggested);
     if(text.length===0){
       this.setState({synopsisArray: "Empty search"});
       return;
@@ -65,12 +66,23 @@ class App extends Component {
 
     console.log(x);
     const title = json.query.search[0].title
-    const title1 = json.query.search[x].title
-    const title2 = json.query.search[x+1].title
+    var title1 = json.query.search[x].title
+    var title2 = json.query.search[x+1].title
+    while((this.state.suggested.has(title1)) || (this.state.suggested.has(title2))){
+      var x = Math.floor(Math.random()*19);
+      //to avoid having the same article in the button
+      if(x===0){
+        x = 1;
+      }
+      title1 = json.query.search[x].title
+      title2 = json.query.search[x+1].title
+    }
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
-    this.setState({searched: this.state.searched.add(title, title1, title2)});
+    this.setState({suggested: this.state.suggested.add(title)});
+    this.setState({suggested: this.state.suggested.add(title1)});
+    this.setState({suggested: this.state.suggested.add(title2)});
   }
 
 
@@ -92,7 +104,7 @@ class App extends Component {
     //OpenAI part
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
 
     });
 
@@ -169,6 +181,7 @@ class App extends Component {
           </div>
           
         </div>
+        
         
       </div>
     );

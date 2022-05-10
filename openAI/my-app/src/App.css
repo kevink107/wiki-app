@@ -19,6 +19,7 @@ img.animated-gif{
 #buttons{
   display: flex;
   flex-direction: row;
+  padding-bottom: 50px;
 }
 
 
