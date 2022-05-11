@@ -5,7 +5,7 @@ import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
 import Button from './Components/Button';
 
-const apiKey = "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";
+const apiKey = "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";
 
 class App extends Component {
 
@@ -85,10 +85,11 @@ class App extends Component {
       const title2 = json.query.search[x+1].title;
     }
 
+    
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
-    this.setState({searched: this.state.searched.add(title, title1, title2)});
+    this.setState({suggested: this.state.suggested.add(title, title1, title2)});
   }
 
 
