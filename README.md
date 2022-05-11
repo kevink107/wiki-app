@@ -2,6 +2,18 @@
 ### Brendan Berkman and Kevin King
 ### Spring 2022
 
+## Description
+
+We developed a web application that allows users to go down a "rabbit hole" of information on a selected topic. When the user makes a search request, they will be provided with an Article Synopsis that details a little bit about their search term and two additional topics to click on for their corresponding synopses. The suggestions allow users to continue to explore new topics and information without end!
+
+## MediaWiki Action API 
+
+This API takes your search term and provides suggestions on additional topics to cater to a user's curiosity. 
+
+## OpenAI API
+
+The OpenAI API uses the search topic and returns a synopsis detailing important information on that term. 
+
 ## OpenAI API Key
 
 Because OpenAI requires a review process for web applications using their API, the site is not currently approved for deployment. 
