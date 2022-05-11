@@ -2,6 +2,10 @@
 ### Brendan Berkman and Kevin King
 ### Spring 2022
 
+## Video Example
+
+https://user-images.githubusercontent.com/41310726/167762572-bb734e97-0ac4-4cf8-9659-86baf1aad1bd.mov
+
 ## Description
 
 We developed a web application that allows users to go down a "rabbit hole" of information on a selected topic. When the user makes a search request, they will be provided with an Article Synopsis that details a little bit about their search term and two additional topics to click on for their corresponding synopses. The suggestions allow users to continue to explore new topics and information without end!
@@ -27,11 +31,5 @@ From there, clone the `wiki-app` repository and plug in your API key within the 
 In your command-line window, type the following: 
 
 ```bash
-<<<<<<< HEAD
-npm run start
-```
-
-=======
 npm start
 ```
->>>>>>> 77e1bd9b0029cd2c584fdd0597f3897c593b767b
