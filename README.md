@@ -1,5 +1,6 @@
 # Rabbit Hole
-### Brendan Berkman and Kevin King, May 2022
+### Brendan Berkman and Kevin King
+### Spring 2022
 
 ## Description
 
@@ -26,6 +27,11 @@ From there, clone the `wiki-app` repository and plug in your API key within the 
 In your command-line window, type the following: 
 
 ```bash
+<<<<<<< HEAD
 npm run start
 ```
 
+=======
+npm start
+```
+>>>>>>> 77e1bd9b0029cd2c584fdd0597f3897c593b767b
