@@ -5,7 +5,7 @@ import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
 import Button from './Components/Button';
 
-const apiKey = ""; //YOUR API KEY HERE
+const apiKey = "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"; //YOUR API KEY HERE
 
 class App extends Component {
 
