@@ -5,6 +5,8 @@ import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
 import Button from './Components/Button';
 
+const apiKey = "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";
+
 class App extends Component {
 
   constructor(props) {
@@ -17,7 +19,7 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
-      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
+      suggested: new Set(["Dartmouth College", "Artificial Intelligence"]),
       otherLinks: ["Dartmouth College", "Artificial Intelligence"],
       searches: 0,
     }
@@ -74,6 +76,14 @@ class App extends Component {
     const title1 = json.query.search[x].title
     const title2 = json.query.search[x+1].title
 
+    while(this.state.suggested.has(title1) || this.state.suggested.has(title2)){
+      x = Math.floor(Math.random()*19);
+      if(x===0){
+        x = 1;
+      };
+      const title1 = json.query.search[x].title;
+      const title2 = json.query.search[x+1].title;
+    }
 
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
@@ -105,7 +115,7 @@ class App extends Component {
     //OpenAI
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: apiKey,
     });
 
     //This prompt tells openAI to gather key points from the Wiki page
@@ -147,7 +157,7 @@ class App extends Component {
       synopArray.pop();
     }
 
-    //If nothing comes up
+    //If nothing comes up, return an error message
     if(synopArray.length===0){
       this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."});
       return;
