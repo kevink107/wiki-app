@@ -5,6 +5,8 @@ import Synopsis from './Components/Synopsis';
 import Topbar from './Components/Topbar';
 import Button from './Components/Button';
 
+const apiKey = ""; //YOUR API KEY HERE
+
 class App extends Component {
 
   constructor(props) {
@@ -17,12 +19,13 @@ class App extends Component {
       results: null,
       articleName: "",
       extract: null,
-      searched: new Set(["Dartmouth College", "Artificial Intelligence"]),
+      suggested: new Set(["Dartmouth College", "Artificial Intelligence"]),
       otherLinks: ["Dartmouth College", "Artificial Intelligence"],
       searches: 0,
     }
   }
 
+  //prompts the wiki search for articles and openAI call to build synopsis
   updateResults = (text) => {
     if(text.length===0){
       this.setState({synopsisArray: "Empty search"});
@@ -36,15 +39,14 @@ class App extends Component {
     this.setState({searchterm: text});
     // set article title and synopsis to loading here...
     this.getTitle(text);
+
+    //timesout to ensure state is set
     setTimeout(() => {
       this.getSynopsis(this.state.articleName)
-    }, 1000);
+    }, 500);
   }
 
-  returnTitle = () =>{
-    return(this.state.articleName);
-  }
-
+  //gets the title of the article as well as rabbit hole suggestions
   getTitle = async(text) => {
     const api = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=` + text;
     const response = await fetch(api);
@@ -63,17 +65,35 @@ class App extends Component {
       x = 1;
     }
 
+
+    
     console.log(x);
+
+    //sets the title article
     const title = json.query.search[0].title
+
+    //sets rabbit hole suggestions based on random articles with similar keywoards to the top choice
     const title1 = json.query.search[x].title
     const title2 = json.query.search[x+1].title
+
+    while(this.state.suggested.has(title1) || this.state.suggested.has(title2)){
+      x = Math.floor(Math.random()*19);
+      if(x===0){
+        x = 1;
+      };
+      const title1 = json.query.search[x].title;
+      const title2 = json.query.search[x+1].title;
+    }
+
+
     this.setState({results: json.query.search}); 
     this.setState({articleName: title});
     this.setState({otherLinks: [title1, title2]});
-    this.setState({searched: this.state.searched.add(title, title1, title2)});
+    this.setState({suggested: this.state.suggested.add(title, title1, title2)});
   }
 
 
+  //gets wiki HTML and uses openAI api to create synopsis
   getSynopsis = async(text) => {
     const url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=" + text;
     const response = await fetch(url);
@@ -86,15 +106,20 @@ class App extends Component {
     const pageIds = Object.keys(pages);
     const firstPageId = pageIds.length ? pageIds[0] : null;
     const extraction = firstPageId ? pages[firstPageId].extract : null;
+
+    //gets rid of HTML syntex
     const strippedHtml = extraction.replace(/<[^>]+>/g, '');
+
+
     this.setState({extract: strippedHtml});
 
-    //OpenAI part
+    //OpenAI
     const { Configuration, OpenAIApi } = require("openai");
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: apiKey,
     });
 
+    //This prompt tells openAI to gather key points from the Wiki page
     const finalPrompt = "What are some key points from this text: \n\n\"\"\""+strippedHtml+"\"\"\"\nStart here\n1."
     const openai = new OpenAIApi(configuration);
     const synopsisResponse = await openai.createCompletion("text-curie-001", {
@@ -112,7 +137,7 @@ class App extends Component {
     const numbers = new Set(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
     let tempString = "1.";
 
-    //some parsing
+    //parses the response to create a new item in an array every time a " {number}. " sequence is found
     for(let i = 2; i<finalSynopsis.length-2; i++){
       if((numbers.has(finalSynopsis[i])) && (finalSynopsis[i+1]===".") && (finalSynopsis[i+2]===" ") && !(numbers.has(finalSynopsis[i-1]))){
         synopArray.push(tempString);
@@ -122,15 +147,18 @@ class App extends Component {
         tempString = tempString+finalSynopsis[i];
       }
     }
-    //last 2 characters
+
+    //last 2 characters must be included
     synopArray.push(tempString+finalSynopsis[finalSynopsis.length-2]+finalSynopsis[finalSynopsis.length-1]);
 
+    //removes last item if openAI cut it off due to max-tokens parameter
     var lastItem = synopArray[synopArray.length-1];
     if(lastItem[lastItem.length-1]!=="."){
       console.log(lastItem);
       synopArray.pop();
     }
 
+    //If nothing comes up, return an error message
     if(synopArray.length===0){
       this.setState({synopsisArray: "Please be more specific. Your entry could refer to multiple entities."});
       return;
